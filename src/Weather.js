@@ -1,28 +1,41 @@
-import React from "react";
+import React, { useState } from "react";
 import "./App.css";
 
+import axios from "axios";
+
 export default function Weather() {
-  let weatherData = {
-    city: "Wroclaw",
-    temperature: 9,
-    date: "Friday 10:00",
-    description: "Partly Cloudy",
-    imgUrl:
-      "https://ssl.gstatic.com/onebox/weather/64/partly_cloudy.png",
-    humidity: 80,
-    wind: 30,
-  };
-  return (
-    <div className="Weather">
-      <form className="search-form">
+  let [city, setCity] = useState(null);
+  let [searched, setSearched] = useState(false);
+  let [weather, setWeather] = useState("");
+
+  let today = new Date();
+  let currentDay = today.getDay();
+  let daysOfWeek = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  let day = daysOfWeek[currentDay];
+
+  let form = (
+    <div className="form-container">
+      <form
+        className="search-form"
+        onSubmit={handleSubmit}
+      >
         <div className="row city-search">
           <div className="col-9 city">
             <input
               type="search"
               placeholder="Search for a City"
-              autocomplete="off"
-              autofocus="on"
+              autoComplete="off"
+              autoFocus
               className="form-control change-city"
+              onChange={updateCity}
             />
           </div>
           <div className="col-3 submit">
@@ -35,47 +48,82 @@ export default function Weather() {
         </div>
       </form>
       <button>use current location</button>
-      <hr />
-      <h1>{weatherData.city} Weather</h1>
-      <h2>Currently</h2>
-      <h3>{weatherData.date}</h3>
-      <h4>{weatherData.description}</h4>
-
-      <div className="row">
-        <div className="col-6 current-temp">
-          <img
-            src={weatherData.imgUrl}
-            alt={weatherData.description}
-          />
-          <span className="temp">
-            {weatherData.temperature}
-          </span>
-          <span className="temp-units">
-            <a href="/" className="active-unit">
-              C
-            </a>{" "}
-            |<a href="/"> F</a>
-          </span>
-        </div>
-        <div className="col-6 p-3">
-          <ul>
-            <li id="humidity">
-              Humidity: {weatherData.humidity}%
-            </li>
-
-            <li id="wind">
-              Wind: {weatherData.wind} km/h
-            </li>
-          </ul>
-        </div>
-      </div>
-      <hr />
-      <h2 className="text-center">
-        5-Day Forecast
-      </h2>
-      <div className="weather-forecast">
-        Forecast
-      </div>
     </div>
   );
+
+  function showWeather(response) {
+    setSearched(true);
+    console.log(response.data);
+    setWeather({
+      name: response.data.name,
+      temp: Math.round(response.data.main.temp),
+      description:
+        response.data.weather[0].description,
+      humidity: response.data.main.humidity,
+      wind: response.data.wind.speed,
+      icon: `https://openweathermap.org/img/wn/${response.data.weather[0].icon}.png`,
+    });
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    let apiKey = `c819171fe0abdc14039af4ef5dda283b`;
+    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+    axios.get(apiUrl).then(showWeather);
+  }
+
+  function updateCity(event) {
+    setCity(event.target.value);
+  }
+
+  if (searched) {
+    return (
+      <div className="Weather">
+        {form}
+        <hr />
+        <h1>{city} Weather</h1>
+        <h2>Currently</h2>
+        <h3>{day}</h3>
+        <h4>{weather.description}</h4>
+
+        <div className="row">
+          <div className="col-6 current-temp">
+            <img
+              src={weather.icon}
+              alt={weather.description}
+            />
+            <span className="temp">
+              {weather.temp}
+            </span>
+            <span className="temp-units">
+              <a href="/" className="active-unit">
+                C
+              </a>{" "}
+              |<a href="/"> F</a>
+            </span>
+          </div>
+          <div className="col-6 p-3">
+            <ul>
+              <li id="humidity">
+                Humidity: {weather.humidity}%
+              </li>
+
+              <li id="wind">
+                Wind: {weather.wind} km/h
+              </li>
+            </ul>
+          </div>
+        </div>
+        <hr />
+        <h2 className="text-center">
+          5-Day Forecast
+        </h2>
+        <div className="weather-forecast">
+          Forecast
+        </div>
+      </div>
+    );
+  } else {
+    return <div className="Weather">{form}</div>;
+  }
 }
