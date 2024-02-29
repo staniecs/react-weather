@@ -1,5 +1,6 @@
 import "./App.css";
 import Weather from "./Weather";
+import Footer from "./Footer";
 import { Container } from "react-bootstrap";
 
 export default function App() {
@@ -7,6 +8,7 @@ export default function App() {
     <div className="App">
       <Container>
         <Weather />
+        <Footer />
       </Container>
     </div>
   );
