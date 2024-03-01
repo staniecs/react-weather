@@ -1,25 +1,13 @@
 import React, { useState } from "react";
 import "./Weather.css";
 import axios from "axios";
+import FormattedDate from "./FormattedDate";
 
 export default function Weather() {
   let [city, setCity] = useState(null);
   let [weather, setWeather] = useState({
     searched: false,
   });
-
-  let today = new Date();
-  let currentDay = today.getDay();
-  let daysOfWeek = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ];
-  let day = daysOfWeek[currentDay];
 
   let form = (
     <div className="form-container">
@@ -52,11 +40,11 @@ export default function Weather() {
   );
 
   function showWeather(response) {
-    // setSearched(true);
     console.log(response.data);
     setWeather({
       searched: true,
       name: response.data.name,
+      time: new Date(response.data.time * 1000),
       temp: Math.round(
         response.data.temperature.current
       ),
@@ -88,7 +76,9 @@ export default function Weather() {
         <hr />
         <h1>{city} Weather</h1>
         <h2>Currently</h2>
-        <h3>{day}</h3>
+        <h3>
+          <FormattedDate date={weather.time} />
+        </h3>
         <h4 className="text-capitalize">
           {weather.description}
         </h4>
