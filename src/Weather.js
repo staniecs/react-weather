@@ -4,8 +4,9 @@ import axios from "axios";
 
 export default function Weather() {
   let [city, setCity] = useState(null);
-  let [searched, setSearched] = useState(false);
-  let [weather, setWeather] = useState("");
+  let [weather, setWeather] = useState({
+    searched: false,
+  });
 
   let today = new Date();
   let currentDay = today.getDay();
@@ -51,9 +52,10 @@ export default function Weather() {
   );
 
   function showWeather(response) {
-    setSearched(true);
+    // setSearched(true);
     console.log(response.data);
     setWeather({
+      searched: true,
       name: response.data.name,
       temp: Math.round(
         response.data.temperature.current
@@ -79,7 +81,7 @@ export default function Weather() {
     setCity(event.target.value);
   }
 
-  if (searched) {
+  if (weather.searched) {
     return (
       <div className="Weather">
         {form}
@@ -87,7 +89,9 @@ export default function Weather() {
         <h1>{city} Weather</h1>
         <h2>Currently</h2>
         <h3>{day}</h3>
-        <h4>{weather.description}</h4>
+        <h4 className="text-capitalize">
+          {weather.description}
+        </h4>
 
         <div className="row">
           <div className="col-6 current-temp">
