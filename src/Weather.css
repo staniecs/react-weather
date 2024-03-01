@@ -81,22 +81,19 @@
 
 .Weather .current-temp {
   font-size: 64px;
-  /* text-align: center; */
   line-height: 64px;
 }
-
+.Weather .temp {
+  line-height: 64px;
+  vertical-align: middle;
+}
 .Weather img {
-  line-height: 1;
-  height: 86px;
+  line-height: 64px;
   display: inline-block;
   margin-right: 10px;
 }
 .Weather .details {
-  vertical-align: middle;
-}
-
-.Weather temp {
-  position: relative;
+  vertical-align: top;
 }
 
 .Weather .forecast-heading {
@@ -107,7 +104,7 @@
 .Weather .temp-units {
   font-size: 15px;
   position: relative;
-  bottom: 30px;
+  bottom: 25px;
   margin-left: 3px;
 }
 

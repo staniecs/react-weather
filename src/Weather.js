@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "./Weather.css";
-
 import axios from "axios";
 
 export default function Weather() {
@@ -56,19 +55,23 @@ export default function Weather() {
     console.log(response.data);
     setWeather({
       name: response.data.name,
-      temp: Math.round(response.data.main.temp),
+      temp: Math.round(
+        response.data.temperature.current
+      ),
       description:
-        response.data.weather[0].description,
-      humidity: response.data.main.humidity,
+        response.data.condition.description,
+      humidity:
+        response.data.temperature.humidity,
       wind: response.data.wind.speed,
-      icon: `https://openweathermap.org/img/wn/${response.data.weather[0].icon}.png`,
+      icon: response.data.condition.icon_url,
     });
   }
 
   function handleSubmit(event) {
     event.preventDefault();
-    let apiKey = `c819171fe0abdc14039af4ef5dda283b`;
-    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+    let apiKey = `b3b36of7f40tfb2fc5ea76728725e80c`;
+    let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
+
     axios.get(apiUrl).then(showWeather);
   }
 
