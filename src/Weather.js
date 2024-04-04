@@ -8,7 +8,7 @@ export default function Weather() {
   let [weather, setWeather] = useState({
     searched: false,
   });
-
+  
   let form = (
     <div className="form-container">
       <form
@@ -35,8 +35,7 @@ export default function Weather() {
           </div>
         </div>
       </form>
-      <button>use current location</button>
-    </div>
+        </div>
   );
 
   function showWeather(response) {
@@ -72,6 +71,7 @@ export default function Weather() {
   if (weather.searched) {
     return (
       <div className="Weather">
+        <h1>Sarah's Weather App</h1>
         {form}
         <hr />
         <h1>{city} Weather</h1>
@@ -121,6 +121,7 @@ export default function Weather() {
       </div>
     );
   } else {
-    return <div className="Weather">{form}</div>;
+    return (<div className="Weather">
+      <h1>Sarah's Weather App</h1>{form}</div>)
   }
 }
