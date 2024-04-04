@@ -9,7 +9,7 @@ export default function Footer() {
           rel="noreferrer"
         >
           Sarah Staniec
-        </a>{" "}
+        </a>
         .
       </p>
       <p>
