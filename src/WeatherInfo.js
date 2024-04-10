@@ -1,28 +1,27 @@
 import React from "react";
 import FormattedDate from "./FormattedDate";
+import "./Weather.css";
 
-export default function WeatherInfo() {
+export default function WeatherInfo(props) {
     return  (<div className="WeatherInfo">
-    <h1>Sarah's Weather App</h1>
-    {form}
     <hr />
-    <h1>{city} Weather</h1>
+    <h1>{props.weather.city} Weather</h1>
     <h2>Currently</h2>
     <h3>
-      <FormattedDate date={weather.time} />
+      <FormattedDate date={props.weather.time} />
     </h3>
     <h4 className="text-capitalize">
-      {weather.description}
+      {props.weather.description}
     </h4>
 
     <div className="row">
       <div className="col-6 current-temp">
         <img
-          src={weather.icon}
-          alt={weather.description}
+          src={props.weather.icon}
+          alt={props.weather.description}
         />
         <span className="temp">
-          {weather.temp}
+          {props.weather.temp}
         </span>
         <span className="temp-units">
           <a href="/" className="active-unit">
@@ -34,11 +33,11 @@ export default function WeatherInfo() {
       <div className="col-6 p-3">
         <ul>
           <li id="humidity">
-            Humidity: {weather.humidity}%
+            Humidity: {props.weather.humidity}%
           </li>
 
           <li id="wind">
-            Wind: {weather.wind} km/h
+            Wind: {props.weather.wind} km/h
           </li>
         </ul>
       </div>

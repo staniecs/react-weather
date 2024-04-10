@@ -1,8 +1,10 @@
-.Weather {
+.Weather, .Loading {
   padding: 30px 25px;
   border: solid 2px #8d43a8;
   border-radius: 20px;
 }
+
+
 
 .Weather .form-container {
   padding: 10px;
