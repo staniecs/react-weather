@@ -9,41 +9,12 @@ export default function Weather(props) {
     searched: false,
   });
   
-  // const form = (
-  //   <div className="form-container">
-  //     <form
-  //       className="search-form"
-  //       onSubmit={handleSubmit}
-  //     >
-  //       <div className="row city-search">
-  //         <div className="col-9 city">
-  //           <input
-  //             type="search"
-  //             placeholder="Search for a City"
-  //             autoComplete="off"
-  //             autoFocus
-  //             className="form-control change-city"
-  //             onChange={updateCity}
-  //           />
-  //         </div>
-  //         <div className="col-3 submit">
-  //           <input
-  //             type="submit"
-  //             className="form-control search"
-  //             value="🔍"
-  //           />
-  //         </div>
-  //       </div>
-  //     </form>
-  //       </div>
-  // );
 
   function showWeather(response) {
-    console.log(response.data);
     setWeather({
       searched: true,
       city: response.data.city,
-      time: new Date(response.data.dt * 1000),
+      time: new Date(response.data.time * 1000),
       temp: Math.round(
         response.data.temperature.current
       ),
@@ -51,7 +22,7 @@ export default function Weather(props) {
         response.data.condition.description,
       humidity:
         response.data.temperature.humidity,
-      wind: response.data.wind.speed,
+      wind: Math.round(response.data.wind.speed),
       icon: response.data.condition.icon_url,
     });
   }
