@@ -11,9 +11,9 @@ export default function FormattedDate(props) {
     "Saturday",
   ];
  console.log(props.date)
-  const day = daysOfWeek[props.date.getDay()];
-  const hour = [props.date.getHours()];
-  const minute = [props.date.getMinutes()];
+  let day = daysOfWeek[props.date.getDay()];
+  let hour = [props.date.getHours()];
+  let minute = [props.date.getMinutes()];
 
   if (hour < 10) {
     hour = `0${hour}`;
