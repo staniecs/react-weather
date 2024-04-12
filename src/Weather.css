@@ -47,6 +47,7 @@
   font-size: 16px;
   margin-top: 0;
   font-weight: 400;
+  margin-bottom: 0px;
 }
 .Weather ul {
   list-style-type: none;
@@ -89,10 +90,10 @@
   line-height: 64px;
   vertical-align: middle;
 }
-.Weather img {
+.Weather canvas {
   line-height: 64px;
   display: inline-block;
-  margin-right: 10px;
+
 }
 .Weather .details {
   vertical-align: top;
@@ -105,9 +106,12 @@
 
 .Weather .temp-units {
   font-size: 15px;
+line-height: 1;
+  /* margin-left: 3px; */
   position: relative;
-  bottom: 25px;
-  margin-left: 3px;
+  top: 10px;
+
+
 }
 
 .Weather .active-unit {

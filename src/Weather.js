@@ -3,6 +3,7 @@ import "./Weather.css";
 import axios from "axios";
 import WeatherInfo from "./WeatherInfo";
 
+
 export default function Weather(props) {
   const [city, setCity] = useState(props.defaultCity);
   const [weather, setWeather] = useState({
@@ -11,6 +12,7 @@ export default function Weather(props) {
   
 
   function showWeather(response) {
+    console.log(response)
     setWeather({
       searched: true,
       city: response.data.city,
@@ -23,7 +25,7 @@ export default function Weather(props) {
       humidity:
         response.data.temperature.humidity,
       wind: Math.round(response.data.wind.speed),
-      icon: response.data.condition.icon_url,
+      icon: response.data.condition.icon,
     });
   }
 
